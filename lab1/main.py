@@ -1,5 +1,5 @@
 import sys
-import cmath
+import math
 
 
 def get_coef(index, prompt):
@@ -18,10 +18,16 @@ def get_coef(index, prompt):
     except IndexError:
         coef_str = input(f'{prompt} ')
 
-    try:
-        coef = float(coef_str)
-    except ValueError:
-        print('Значение должно быть действительным числом!')
+    while True:
+        try:
+            coef = float(coef_str)
+            if not coef and index == 1:
+                print('Коэффициент А не может принимать значение нуль!')
+            else:
+                break
+        except ValueError:
+            print('Значение должно быть действительным числом!')
+        coef_str = input(f'{prompt} ')
 
     return coef
 
@@ -29,7 +35,6 @@ def get_coef(index, prompt):
 def get_roots(a, b, c):
     """
     Вычисление корней биквадратного уравнения
-    с учётом комплексных вариантов
 
     Args:
         a (float): коэффициент А
@@ -44,27 +49,31 @@ def get_roots(a, b, c):
 
     if D == 0.0:
         root = -b / (2.0 * a)
-        biroot = cmath.sqrt(root)
-        result += [
-            biroot,
-            -biroot
-        ]
+        if root >= 0:
+            biroot = math.sqrt(root)
+            result += [
+                biroot,
+                -biroot
+            ]
 
     elif D > 0.0:
-        sqD = cmath.sqrt(D)
+        sqD = math.sqrt(D)
         root1 = (-b + sqD) / (2.0 * a)
         root2 = (-b - sqD) / (2.0 * a)
-        biroot1 = cmath.sqrt(root1)
-        biroot2 = cmath.sqrt(root2)
-        result += [
-            biroot1,
-            -biroot1,
-            biroot2,
-            -biroot2
-        ]
+        if root1 >= 0:
+            biroot1 = math.sqrt(root1)
+            result += [
+                biroot1,
+                -biroot1
+            ]
+        if root2 >= 0:
+            biroot2 = math.sqrt(root2)
+            result += [
+                biroot2,
+                -biroot2
+            ]
 
-    result = set(result)
-    result = [_.real if not _.imag else _ for _ in result]
+    result = list(set(result))
     return result
 
 
