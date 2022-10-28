@@ -36,6 +36,11 @@ faculty = [
     Faculty("FN4", 1, 1, 1000),
     Faculty("Georgafical", 2, 2, 2343),
     Faculty("mathematical", 3, 4, 3524),
+    Faculty("chemical", 4, 3, 2345),
+    Faculty("CS", 5, 3, 2676),
+    Faculty("social", 6, 4, 2345),
+    Faculty("philosophic", 7, 5, 1289),
+    Faculty("Germanic", 8, 3, 790),
 ]
 
 # Students and Groups
@@ -44,7 +49,15 @@ faculty_university = [
     FacultyUniversity(1, 2),
     FacultyUniversity(2, 3),
     FacultyUniversity(3, 4),
-    FacultyUniversity(3, 5),
+    FacultyUniversity(4, 3),
+    FacultyUniversity(4, 3),
+    FacultyUniversity(5, 3),
+    FacultyUniversity(5, 1),
+    FacultyUniversity(6, 4),
+    FacultyUniversity(7, 5),
+    FacultyUniversity(8, 4),
+    FacultyUniversity(8, 3),
+    FacultyUniversity(8, 5),
 ]
 
 
@@ -93,12 +106,13 @@ def task3():
     result = []
     for i in faculty:
         if i.name[0] == "G":
-            result.append(i.name)
+            middle_result = [i.name]
             for j in faculty_university:
-                if i.id == j.university_id:
+                if i.id == j.faculty_id:
                     for k in university:
                         if j.university_id == k.id:
-                            result.append(k.name)
+                            middle_result.append(k.name)
+            result.append(middle_result)
     return result
 
 
