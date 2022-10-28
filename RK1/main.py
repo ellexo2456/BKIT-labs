@@ -1,6 +1,3 @@
-# используется для сортировки
-import string
-from operator import itemgetter
 from random import choice
 
 
@@ -38,12 +35,12 @@ class FleetsDrivers:
     связи многие-ко-многим
     """
 
-    def __init__(self, driver_id, fleet_id):
+    def __init__(self, fleet_id, driver_id):
         self.driver_id = driver_id
         self.fleet_id = fleet_id
 
 
-# Отделы
+# Автопарки
 fleets = [
     Fleet(1, 'автобусный автопарк', get_rand_address()),
     Fleet(2, 'автопарк "У дома"', get_rand_address()),
@@ -55,13 +52,13 @@ fleets = [
 
 ]
 
-# Сотрудники
+# Водители
 drivers = [
     Driver(1, 'Артамонов К. Б.', 250000, 1),
     Driver(2, 'Петров Л. А.', 350000, 2),
     Driver(3, 'Авашев И. И.', 450000, 3),
     Driver(4, 'Иваненко Ю. Г.', 350000, 3),
-    Driver(5, 'Кириенко И. Р.', 250000, 3),
+    Driver(5, 'Артемьев И. Р.', 250000, 3),
 ]
 
 fleets_drivers = [
@@ -125,27 +122,13 @@ def main():
         ]
 
     print('\nЗадание E3')
-    print(many_to_many)
     drivers_fleets = {d.fio: [] for d in filter(lambda d: d.fio[0] == 'А', drivers)}
     for d in drivers_fleets:
         for f_name, f_address, d_fio, d_price in many_to_many:
             if d == d_fio:
-                drivers_fleets[d].append(f_name)
+                drivers_fleets[d].append((f_name, f_address))
         print(f'{d}')
-        [print(f' ⊢ {f_name}') for f_name in drivers_fleets[d]]
-    # res_13 = {}
-    # # Перебираем все отделы
-    # for d in deps:
-    #     if 'отдел' in d.name:
-    #         # Список сотрудников отдела
-    #         d_emps = list(filter(lambda i: i[2] == d.name, many_to_many))
-    #         # Только ФИО сотрудников
-    #         d_emps_names = [x for x, _, _ in d_emps]
-    #         # Добавляем результат в словарь
-    #         # ключ - отдел, значение - список фамилий
-    #         res_13[d.name] = d_emps_names
-    #
-    # print(res_13)
+        [print(f' ⊢ {f_name} ({f_address})') for f_name, f_address in drivers_fleets[d]]
 
 
 if __name__ == '__main__':
