@@ -1,5 +1,5 @@
 # Итератор для удаления дубликатов
-from lab3.lab_python_fp.gen_random import gen_random
+from gen_random import gen_random
 
 
 class Unique(object):
@@ -18,11 +18,10 @@ class Unique(object):
                 current = self.items[self.index]
                 self.index += 1
 
-                if self.case_ignore:
-                    current = current.lower()
+                current_ = current.lower() if self.case_ignore else current
 
-                if current not in self.used_elements:
-                    self.used_elements.add(current)
+                if current_ not in self.used_elements:
+                    self.used_elements.add(current_)
                     return current
             else:
                 raise StopIteration
