@@ -21,15 +21,9 @@ class fib_test(unittest.TestCase):
     
     def test_fib_4(self):
         start_time = time.time()
-        a = fib(200000) 
+        a = fib(200000)
         end_time = time.time() - start_time
-        self.assertLess(end_time, 1) # if spent time less than a second
-        
-    def test_fib_5(self):
-        start_time = time.time()
-        a = [i for i in fib(200000)] 
-        end_time = time.time() - start_time
-        self.assertLess(1, end_time) 
+        self.assertLess(end_time, 1)
 
 if __name__ == '__main__':
     unittest.main()
